@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clothique — Стильний інтернет-магазин одягу</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <h1 class="logo">Clothique</h1>
+      <nav class="nav">
+        <a href="index.html" class="nav-link active">Головна</a>
+        <a href="cart.html" class="nav-link">
+          Кошик
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="promo">
+      <div class="container">
+        <h2 class="promo-title">Онови свій стиль з Clothique</h2>
+        <p class="promo-subtitle">
+          Очікуй на ексклюзивні пропозиції та акції з лімітованим таймером!
+        </p>
+        <div class="promo-timer" id="promo-timer">Залишилось: 00:15:00</div>
+      </div>
+    </section>
+
+    <section class="catalog-section container">
+      <h3 class="section-title">Каталог одягу</h3>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Всі</button>
+        <button class="filter-btn" data-filter="tshirt">Футболки</button>
+        <button class="filter-btn" data-filter="hoodie">Худі</button>
+        <button class="filter-btn" data-filter="pants">Штани</button>
+        <button class="filter-btn" data-filter="accessories">Аксесуари</button>
+      </div>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Products injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <p>© 2025 Clothique. Всі права захищені.</p>
+    </div>
+  </footer>
+
+  <template id="product-card-template">
+    <div class="product-card">
+      <div class="product-img-wrapper">
+        <img src="" alt="" class="product-img" />
+        <div class="sale-badge">SALE</div>
+      </div>
+      <h4 class="product-name"></h4>
+      <p class="product-price"></p>
+      <button class="btn add-to-cart-btn">Додати в кошик</button>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

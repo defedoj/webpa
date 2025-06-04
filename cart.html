@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clothique — Кошик</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <h1 class="logo">Clothique</h1>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Головна</a>
+        <a href="cart.html" class="nav-link active">
+          Кошик
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cart-container">
+    <h2 class="cart-title">Кошик</h2>
+
+    <table class="cart-table" id="cart-table">
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Назва</th>
+          <th>Ціна</th>
+          <th>Кількість</th>
+          <th>Сума</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cart-items-tbody">
+        <!-- Товари кошика -->
+      </tbody>
+    </table>
+
+    <p class="cart-total" id="cart-total">Всього: 0 ₴</p>
+    <button class="checkout-btn" id="checkout-btn">Оформити замовлення</button>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <p>© 2025 Clothique. Всі права захищені.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+
+  (function () {
+    const cart = JSON.parse(localStorage.getItem('clothique_cart')) || {};
+    const cartItemsTbody = document.getElementById('cart-items-tbody');
+    const cartTotalEl = document.getElementById('cart-total');
+    const cartCountEl = document.getElementById('cart-count');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+
+    function findProduct(id) {
+      return window.products.find(p => p.id === id);
+    }
+
+    function updateCartDisplay(cart) {
+      cartItemsTbody.innerHTML = '';
+      let total = 0;
+      let totalCount = 0;
+
+      for (const [id, qty] of Object.entries(cart)) {
+        const product = findProduct(id);
+        if (!product || qty <= 0) continue;
+        const sum = product.price * qty;
+        total += sum;
+        totalCount += qty;
+
+        const tr = document.createElement('tr');
+
+        const imgTd = document.createElement('td');
+        const img = document.createElement('img');
+        img.classList.add('cart-item-img');
+        img.src = product.image;
+        img.alt = product.name;
+        imgTd.appendChild(img);
+
+        const nameTd = document.createElement('td');
+        nameTd.textContent = product.name;
+
+        const priceTd = document.createElement('td');
+        priceTd.textContent = `${product.price.toLocaleString('uk-UA')} ₴`;
+
+        const qtyTd = document.createElement('td');
+        const qtyControls = document.createElement('div');
+        qtyControls.className = 'quantity-controls';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.textContent = '−';
+        minusBtn.title = 'Зменшити кількість';
+        minusBtn.addEventListener('click', () => {
+          if (cart[id] > 1) {
+            cart[id]--;
+          } else {
+            delete cart[id];
+          }
+          saveAndUpdate();
+        });
+
+        const qtySpan = document.createElement('span');
+        qtySpan.textContent = qty;
+
+        const plusBtn = document.createElement('button');
+        plusBtn.textContent = '+';
+        plusBtn.title = 'Збільшити кількість';
+        plusBtn.addEventListener('click', () => {
+          cart[id]++;
+          saveAndUpdate();
+        });
+
+        qtyControls.appendChild(minusBtn);
+        qtyControls.appendChild(qtySpan);
+        qtyControls.appendChild(plusBtn);
+        qtyTd.appendChild(qtyControls);
+
+        const sumTd = document.createElement('td');
+        sumTd.textContent = `${sum.toLocaleString('uk-UA')} ₴`;
+
+        const rmTd = document.createElement('td');
+        const rmBtn = document.createElement('button');
+        rmBtn.className = 'remove-btn';
+        rmBtn.innerHTML = '&times;';
+        rmBtn.title = 'Видалити товар';
+        rmBtn.addEventListener('click', () => {
+          delete cart[id];
+          saveAndUpdate();
+        });
+        rmTd.appendChild(rmBtn);
+
+        tr.appendChild(imgTd);
+        tr.appendChild(nameTd);
+        tr.appendChild(priceTd);
+        tr.appendChild(qtyTd);
+        tr.appendChild(sumTd);
+        tr.appendChild(rmTd);
+
+        cartItemsTbody.appendChild(tr);
+      }
+
+      cartTotalEl.textContent = `Всього: ${total.toLocaleString('uk-UA')} ₴`;
+      cartCountEl.textContent = totalCount;
+
+      if (totalCount === 0) {
+        cartCountEl.style.display = 'none';
+        cartItemsTbody.innerHTML = `
+          <tr><td colspan="6" style="text-align:center; padding: 2rem; font-style: italic; color: #888;">
+            Ваш кошик порожній.
+          </td></tr>`;
+        checkoutBtn.disabled = true;
+      } else {
+        cartCountEl.style.display = 'inline-block';
+        checkoutBtn.disabled = false;
+      }
+    }
+
+    function saveAndUpdate() {
+      localStorage.setItem('clothique_cart', JSON.stringify(cart));
+      updateCartDisplay(cart);
+      window.dispatchEvent(new Event('storage')); 
+    }
+
+    checkoutBtn.addEventListener('click', () => {
+      alert('Дякуємо за замовлення! Ваше оформлення буде оброблено найближчим часом.');
+      localStorage.removeItem('clothique_cart');
+      Object.keys(cart).forEach(key => delete cart[key]);
+      saveAndUpdate();
+    });
+
+    updateCartDisplay(cart);
+  })();
+  </script>
+</body>
+</html>
