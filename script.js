@@ -4,7 +4,7 @@ window.products = [
       name: 'Класична футболка',
       category: 'tshirt',
       price: 899,
-      image: '',
+      image: 'https://images.prom.ua/935329883_w640_h320_futbolka-s-printom.jpg',
       onSale: true,
     },
     {
@@ -20,7 +20,7 @@ window.products = [
       name: 'Спортивні штани',
       category: 'pants',
       price: 1499,
-      image: '',
+      image: 'https://www.1310.com.ua/wp-content/uploads/2024/08/bryuki-nike-tech-fleece-jogger-fb8002-064-1.jpg',
       onSale: false,
     },
     {
@@ -28,7 +28,7 @@ window.products = [
       name: 'Бейсболка',
       category: 'accessories',
       price: 499,
-      image: '',
+      image: 'https://cdn.modoza.com/media/shop/59/c0/eb4c/9f6d/kepka-polo-ralph-lauren-ralph_lauren_2122-59c0eb4c9f6d5a0520f80513b344a2f1.ipthumb853x1105prop.webp',
       onSale: true,
     },
     {
@@ -36,7 +36,7 @@ window.products = [
       name: 'Спортивна футболка',
       category: 'tshirt',
       price: 949,
-      image: '',
+      image: 'https://www.soccerlord.se/wp-content/uploads/2018/09/Borussia-Dortmund-Third-Cup-Football-Shirt-24-25.jpg',
       onSale: false,
     },
     {
@@ -44,7 +44,7 @@ window.products = [
       name: 'Світло-сіре худі',
       category: 'hoodie',
       price: 1799,
-      image: '',
+      image: 'https://www.crepslocker.com/cdn/shop/files/balenciaga-political-grey-hoodie-600583tkvi91379-back.webp?v=1708097529&width=1200',
       onSale: true,
     },
     {
@@ -52,7 +52,7 @@ window.products = [
       name: 'Класичні джогери',
       category: 'pants',
       price: 1399,
-      image: '',
+      image: 'https://ireland.apollo.olxcdn.com/v1/files/9l1hzivzipkj3-UA/image',
       onSale: false,
     },
     {
@@ -60,7 +60,7 @@ window.products = [
       name: 'Спортивні рукавички',
       category: 'accessories',
       price: 699,
-      image: '',
+      image: 'https://sportcity.ua/wa-data/public/shop/products/97/01/20197/images/229187/229187.970.jpg',
       onSale: false,
     }
   ];
